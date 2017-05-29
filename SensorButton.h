@@ -60,6 +60,7 @@ sensor_button.reset(new SensorButton(USER_BUTTON_PORT,
 										sensor_button->event();
 										//chSysUnlockFromISR();
 								  };
+	  extStart(&EXTD1, &extcfg);
 */
 
 class SensorButton {
