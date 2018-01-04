@@ -7,6 +7,7 @@
 
 #include "hal.h"
 
+#if PORT_ARCHITECTURE_AVR
 #if HAL_USE_PAL
 
 #include "HT12E.h"
@@ -70,3 +71,4 @@ void HT12E::SendFrame(uint16_t addr_data) {
 	SendWord(addr_data);
 }
 #endif /* HAL_USE_PAL */
+#endif /* PORT_ARCHITECTURE_AVR */
