@@ -10,6 +10,8 @@
 
 #include "hal.h"
 
+#if HAL_USE_PWM
+
 /*
  * #if HAL_USE_PWM
 PWMConfig pwmcfg = {
@@ -53,5 +55,7 @@ public:
 	void Set(int8_t degree);
 	virtual ~Servo();
 };
+
+#endif
 
 #endif /* SERVO_H_ */

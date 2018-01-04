@@ -5,6 +5,11 @@
  *      Author: Bogdan
  */
 
+
+#include "hal.h"
+
+#if HAL_USE_PWM
+
 #include "Servo.h"
 
 Servo::Servo() {
@@ -26,3 +31,5 @@ void Servo::Set(int8_t degree) {
 	}
 	pwmEnableChannel(pwmp_, ch_, PWM_PERCENTAGE_TO_WIDTH(pwmp_, deg)); ///< 3%
 }
+
+#endif
