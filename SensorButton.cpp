@@ -28,8 +28,8 @@ void SensorButton::event_process_() {
 			/// un pushed GPIOA_BUTTON
 			is_pushed_old_state_ = false;
 
-			if (released_cb_)
-			released_cb_();
+			if (released_cb_ != nullptr)
+				released_cb_();
 		};
 	} else {
 		if (palReadPad(port_, pin_) == 1) {
@@ -37,8 +37,8 @@ void SensorButton::event_process_() {
 			/// received new state need send event and change old state
 			is_pushed_old_state_ = true;
 
-			if (pushed_cb_)
-			pushed_cb_();
+			if (pushed_cb_ != nullptr)
+				pushed_cb_();
 		};
 	};
 }
