@@ -5,7 +5,7 @@
  *      Author: Bogdan
  */
 
-#include <HT12D.h>
+#include "HT12D.h"
 
 HT12D::HT12D(ioportid_t port, uint8_t pad, callback_t callback, GPTDriver* gptd) {
 	// TODO Auto-generated constructor stub

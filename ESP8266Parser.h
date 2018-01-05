@@ -8,6 +8,10 @@
 #ifndef ESP8266PARSER_H_
 #define ESP8266PARSER_H_
 
+#include "hal.h"
+
+#if HAL_USE_UART
+
 #include <stdint.h>
 
 class ESP8266Parser {
@@ -22,4 +26,5 @@ public:
 	char buffer[20];
 };
 
+#endif /* HAL_USE_UART */
 #endif /* ESP8266PARSER_H_ */

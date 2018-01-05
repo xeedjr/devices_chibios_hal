@@ -8,6 +8,8 @@
 #ifndef BACKUPREGISTER_H_
 #define BACKUPREGISTER_H_
 
+#if PORT_ARCHITECTURE_ARM
+
 #include <stdint.h>
 
 class BackupRegister {
@@ -21,4 +23,5 @@ public:
 
 extern BackupRegister stm32_backup_registers;
 
+#endif /*PORT_ARCHITECTURE_ARM*/
 #endif /* BACKUPREGISTER_H_ */

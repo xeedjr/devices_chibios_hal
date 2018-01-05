@@ -5,8 +5,10 @@
  *      Author: Bogdan
  */
 
-#include <BackupRegister.h>
+#if PORT_ARCHITECTURE_ARM
+
 #include "hal.h"
+#include <BackupRegister.h>
 
 BackupRegister stm32_backup_registers;
 
@@ -48,3 +50,5 @@ uint16_t BackupRegister::read(uint8_t reg) {
 		break;
 	}
 }
+
+#endif /*PORT_ARCHITECTURE_ARM*/

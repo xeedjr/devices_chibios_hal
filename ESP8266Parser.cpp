@@ -5,11 +5,15 @@
  *      Author: Bogdan
  */
 
+#include "hal.h"
+
+#if HAL_USE_UART
+
 #include "ESP8266Parser.h"
 
 #include "cmsis_os.h"
 #include "ch.h"
-#include "hal.h"
+
 
 static ESP8266Parser* p = nullptr;
 
@@ -73,7 +77,7 @@ static void rxend(UARTDriver *uartp) {
 /*
  * UART driver configuration structure.
  */
-static UARTConfig uart_cfg_1 = {
+/*static UARTConfig uart_cfg_1 = {
   txend1,
   txend2,
   rxend,
@@ -84,13 +88,13 @@ static UARTConfig uart_cfg_1 = {
   0,
   0
 };
-
+*/
 
 ESP8266Parser::ESP8266Parser() {
 	// TODO Auto-generated constructor stub
 	p = this;
-	uartStart(&UARTD2, &uart_cfg_1);
-	uartStartReceive(&UARTD2, 1, &recv_c);
+//	uartStart(&UARTD2, &uart_cfg_1);
+//	uartStartReceive(&UARTD2, 1, &recv_c);
 }
 
 ESP8266Parser::~ESP8266Parser() {
@@ -114,5 +118,7 @@ void ESP8266Parser::process() {
 	buffer[index++] =
 
 	last_c = recv_c;
-	uartStartReceive(&UARTD2, 1, &recv_c);
+//	uartStartReceive(&UARTD2, 1, &recv_c);
 }
+
+#endif  /*HAL_USE_UART*/

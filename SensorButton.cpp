@@ -5,12 +5,12 @@
  *      Author: Bogdan
  */
 
-#include <SensorButton.h>
+#include "SensorButton.h"
 
 SensorButton::SensorButton(ioportid_t port,
 							uint8_t pin,
-							std::function<void(void)> pushed_cb,
-							std::function<void(void)> released_cb) {
+							callback_t pushed_cb,
+							callback_t released_cb) {
 	port_ = port;
 	pin_ = pin;
 	pushed_cb_ = pushed_cb;
@@ -22,27 +22,25 @@ SensorButton::~SensorButton() {
 }
 
 void SensorButton::event_process_() {
-	switch(is_pushed_old_state_) {
-	case false: /// un pushed state
-	    if (palReadPad(port_, pin_) == 1) {
-	    	/// pushed GPIOA_BUTTON
-	    	/// received new state need send event and change old state
-	    	is_pushed_old_state_ = true;
+	if (is_pushed_old_state_ == true) {
 
-	    	if (pushed_cb_)
-	    		pushed_cb_();
-	    };
-		break;
-	case true: /// pushed state
-	    if (palReadPad(port_, pin_) == 0) {
-	    	/// un pushed GPIOA_BUTTON
-	    	is_pushed_old_state_ = false;
+		if (palReadPad(port_, pin_) == 0) {
+			/// un pushed GPIOA_BUTTON
+			is_pushed_old_state_ = false;
 
-	    	if (released_cb_)
-	    		released_cb_();
-	    };
-		break;
-	}
+			if (released_cb_)
+			released_cb_();
+		};
+	} else {
+		if (palReadPad(port_, pin_) == 1) {
+			/// pushed GPIOA_BUTTON
+			/// received new state need send event and change old state
+			is_pushed_old_state_ = true;
+
+			if (pushed_cb_)
+			pushed_cb_();
+		};
+	};
 }
 
 /** @brief !!! Shall be in  chSysLockFromISR

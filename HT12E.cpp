@@ -7,7 +7,7 @@
 
 #include "hal.h"
 
-#if PORT_ARCHITECTURE_AVR
+#ifdef PORT_ARCHITECTURE_AVR
 #if HAL_USE_PAL
 
 #include "HT12E.h"

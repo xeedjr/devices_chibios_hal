@@ -8,7 +8,7 @@
 #ifndef SENSORBUTTON_H_
 #define SENSORBUTTON_H_
 
-#include <functional>
+//#include <functional>
 
 #include "cmsis_os.h"
 #include "hal.h"
@@ -64,21 +64,23 @@ sensor_button.reset(new SensorButton(USER_BUTTON_PORT,
 */
 
 class SensorButton {
+	typedef void (*callback_t)(void);
+	
 	bool is_pushed_old_state_ = false;
 	ioportid_t port_;
 	uint8_t pin_;
-	std::function<void(void)> pushed_cb_;
-	std::function<void(void)> released_cb_;
-	std::function<void(void)> timer_cb_;
-    std::function<void(void)> ext_interrupt_;
+	callback_t pushed_cb_;
+	callback_t released_cb_;
+	callback_t timer_cb_;
+    callback_t ext_interrupt_;
 	static void static_timer_handler_(void const *argument);
 	void timer_handler_();
 	void event_process_();
 public:
 	SensorButton(ioportid_t port,
 				uint8_t pin,
-				std::function<void(void)> pushed_cb,
-				std::function<void(void)> released_cb);
+				callback_t pushed_cb,
+				callback_t released_cb);
 	virtual ~SensorButton();
 
 	void event();

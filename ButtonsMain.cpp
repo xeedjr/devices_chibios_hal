@@ -5,7 +5,7 @@
  *      Author: Bogdan
  */
 
-#include <ButtonsMain.h>
+#include "ButtonsMain.h"
 
 ButtonsMain::ButtonsMain() {
 	thread_ID = osThreadCreate(osThread(ButtonsMain_thread), NULL);
