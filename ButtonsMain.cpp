@@ -12,7 +12,6 @@ ButtonsMain::ButtonsMain() {
 	if (thread_ID == NULL) {
 		//abort();
 	}
-	thread_ID->p_name = "mb_thread";
 }
 
 ButtonsMain::~ButtonsMain() {

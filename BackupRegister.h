@@ -8,7 +8,9 @@
 #ifndef BACKUPREGISTER_H_
 #define BACKUPREGISTER_H_
 
-#if PORT_ARCHITECTURE_ARM
+#include "hal.h"
+
+#ifdef PORT_ARCHITECTURE_ARM
 
 #include <stdint.h>
 

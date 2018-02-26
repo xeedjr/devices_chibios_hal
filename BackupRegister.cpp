@@ -5,9 +5,10 @@
  *      Author: Bogdan
  */
 
-#if PORT_ARCHITECTURE_ARM
-
 #include "hal.h"
+
+#ifdef PORT_ARCHITECTURE_ARM
+
 #include <BackupRegister.h>
 
 BackupRegister stm32_backup_registers;

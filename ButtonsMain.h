@@ -28,7 +28,7 @@ class ButtonsMain {
 
 		}
 	}
-	osThreadDef(ButtonsMain_thread, osPriorityNormal, 50);
+	osThreadDef(ButtonsMain_thread, osPriorityNormal, 50, "mb_thread");
 
 	void thread();
 public:
