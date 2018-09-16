@@ -30,11 +30,11 @@ void LEDBlinker::init(ioportid_t port,
 
 void LEDBlinker::set_timer(uint32_t timeout_ms) {
 	if (port_is_isr_context()) {
-		chVTSetI(&vt, MS2ST(timeout_ms), [](void *arg){
+		chVTSetI(&vt, TIME_MS2I(timeout_ms), [](void *arg){
 										((LEDBlinker*)(arg))->led_cb();
 									}, this);
 	} else {
-		chVTSet(&vt, MS2ST(timeout_ms), [](void *arg){
+		chVTSet(&vt, TIME_MS2I(timeout_ms), [](void *arg){
 										((LEDBlinker*)(arg))->led_cb();
 									}, this);
 	}
