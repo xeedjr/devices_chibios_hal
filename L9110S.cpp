@@ -5,6 +5,7 @@ void L9110S::init(ioline_t ia, ioline_t ib) {
 	this->ib = ib;
 	palSetLineMode(ia, PAL_MODE_OUTPUT_PUSHPULL);
 	palSetLineMode(ib, PAL_MODE_OUTPUT_PUSHPULL);
+	set_direction(kStop);
 }
 
 void L9110S::set_direction(DIRECTION dir) {
