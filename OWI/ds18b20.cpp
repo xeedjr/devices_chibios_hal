@@ -80,10 +80,10 @@ unsigned char DS18B20::read_scratchpad(unsigned char *data )  /// returns config
     data[7] = bus->ReceiveByte();    /// 7 RES2
     data[8] = bus->ReceiveByte();    /// 8 CRC
 
-    if (data[8] != crc8(data, 8)) {
-        return 2;	/// if CRC is bad
-    };
-
+	if ((data[5] != 0xff) || (data[7] != 0x10) || (crc8(data, 9) != 0)) {
+		return 2; // fixed data is not presented
+	}
+	
     return 1;
 }
 
