@@ -1,3 +1,5 @@
+#pragma once
+
 #include "hal.h"
 
 class L9110S {

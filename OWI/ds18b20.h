@@ -15,6 +15,9 @@ public:
 	#define SP_RES2  7
 	#define SP_CRC   8
 
+	#define SP_CFG_R1   6
+	#define SP_CFG_R0   5
+	
 	// ds1820 rom registers
 	#define ROM_DEVTYPE  0
 	#define ROM_SERIAL1  1
@@ -34,6 +37,18 @@ public:
 	#define CMD_READSCRATCHPAD    0xBE
 	#define CMD_COPYSCRATCHPAD    0x48
 
+	enum Resolution {
+		k9bit = 0,	
+		k10bit = 1,
+		k11bit = 2,
+		k12bit = 3,
+	} resolution = k12bit;
+
+	#define TCONV12BIT_MS	(750)
+	#define TCONV11BIT_MS	(TCONV12BIT_MS/2)
+	#define TCONV10BIT_MS	(TCONV12BIT_MS/4)
+	#define TCONV9BIT_MS	(TCONV12BIT_MS/8)
+	
 	unsigned char id[8];    //!< The 64 bit identifier.
 	unsigned char skip_romid;
 	OWI* bus;
@@ -41,8 +56,10 @@ public:
 	void init(OWI* bus);
 	unsigned char crc8 (unsigned char *data_in, unsigned int number_of_bytes_to_read );
 	unsigned char read_scratchpad (unsigned char *data );  /// returns config bitfield;  // returns config bitfield
+	unsigned char write_scratchpad(unsigned char *data);
 	unsigned char read_rom (unsigned char pin, unsigned char *data );  // returns rom
 	unsigned char is(); //визначає чи підключений датчик
 	unsigned char start_conv();
+	void setResolution(enum Resolution resol);
 	float exec();
 };

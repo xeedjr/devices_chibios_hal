@@ -87,6 +87,41 @@ unsigned char DS18B20::read_scratchpad(unsigned char *data )  /// returns config
     return 1;
 }
 
+
+unsigned char DS18B20::write_scratchpad(unsigned char *data)
+{
+	if (!bus->DetectPresence()){
+		return 0;
+	};
+
+	if (skip_romid == 1)
+	{
+		// skip rom
+		bus->SendByte(CMD_SKIPROM);
+	}
+	else
+	{
+		//rom
+		bus->SendByte(CMD_MATCHROM);
+		bus->SendByte(id[0]);
+		bus->SendByte(id[1] );
+		bus->SendByte(id[2]);
+		bus->SendByte(id[3]);
+		bus->SendByte(id[4]);
+		bus->SendByte(id[5]);
+		bus->SendByte(id[6]);
+		bus->SendByte(id[7]);
+	};
+
+	bus->SendByte(CMD_WRITESCRATCHPAD);
+	
+	bus->SendByte(data[0]); //Th
+	bus->SendByte(data[1]); //Tl
+	bus->SendByte(data[2]); //Config
+
+	return 1;
+}
+
 unsigned char DS18B20::start_conv()
 {
     if (!bus->DetectPresence()){
@@ -133,6 +168,14 @@ unsigned char DS18B20::is()
     return 1;
 }
 
+void DS18B20::setResolution(enum Resolution resol) {
+	resolution = resol;
+	uint8_t data[3] = {0};
+		
+	data[2] = ((resol) << 5);
+	write_scratchpad(data);
+}
+
 #include "cmsis_os.h"
 /// read temperature wit delay
 float DS18B20::exec()
@@ -149,7 +192,20 @@ float DS18B20::exec()
 		return -999;
     };
 	
-	osDelay(1000);
+	switch (resolution) {
+		case k9bit:
+			osDelay(TCONV9BIT_MS);
+		break;
+		case k10bit:
+			osDelay(TCONV10BIT_MS);
+		break;
+		case k11bit:
+			osDelay(TCONV11BIT_MS);
+		break;
+		case k12bit:
+			osDelay(TCONV12BIT_MS);
+		break;
+	}
 	
 	///read temperature register
 	if (read_scratchpad (scratchpad) == 1)	{
