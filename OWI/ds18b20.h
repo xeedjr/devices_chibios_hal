@@ -60,6 +60,7 @@ public:
 	unsigned char read_rom (unsigned char pin, unsigned char *data );  // returns rom
 	unsigned char is(); //визначає чи підключений датчик
 	unsigned char start_conv();
+	void dataOrConversionReady();
 	void setResolution(enum Resolution resol);
 	float exec();
 };

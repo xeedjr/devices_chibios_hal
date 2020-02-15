@@ -168,6 +168,15 @@ unsigned char DS18B20::is()
     return 1;
 }
 
+void DS18B20::dataOrConversionReady() {
+	for (int i = 0; i < 17000; i++){
+		if (bus->ReadBit() == 1) {
+			// ready
+			return;
+		}
+	}
+}
+
 void DS18B20::setResolution(enum Resolution resol) {
 	resolution = resol;
 	uint8_t data[3] = {0};
@@ -192,7 +201,7 @@ float DS18B20::exec()
 		return -999;
     };
 	
-	switch (resolution) {
+/*	switch (resolution) {
 		case k9bit:
 			osDelay(TCONV9BIT_MS);
 		break;
@@ -206,6 +215,8 @@ float DS18B20::exec()
 			osDelay(TCONV12BIT_MS);
 		break;
 	}
+	*/
+	dataOrConversionReady();
 	
 	///read temperature register
 	if (read_scratchpad (scratchpad) == 1)	{
