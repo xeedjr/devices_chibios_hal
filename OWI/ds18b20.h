@@ -54,7 +54,6 @@ public:
 	OWI* bus;
 
 	void init(OWI* bus);
-	unsigned char crc8 (unsigned char *data_in, unsigned int number_of_bytes_to_read );
 	unsigned char read_scratchpad (unsigned char *data );  /// returns config bitfield;  // returns config bitfield
 	unsigned char write_scratchpad(unsigned char *data);
 	unsigned char read_rom (unsigned char pin, unsigned char *data );  // returns rom
